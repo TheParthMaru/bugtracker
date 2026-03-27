@@ -15,6 +15,8 @@ COPY --from=builder /workspace/build/libs/*.jar /app/app.jar
 
 # Render injects PORT; application.properties uses server.port=${PORT:8080}
 ENV PORT=8080
+# Free-tier instances are memory-constrained; cap heap for the container
+ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75.0"
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
