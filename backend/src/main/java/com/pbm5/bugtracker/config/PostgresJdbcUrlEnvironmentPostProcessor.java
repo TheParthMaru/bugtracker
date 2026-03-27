@@ -17,6 +17,9 @@ import org.springframework.util.StringUtils;
  * Accepts Neon / Heroku style {@code postgresql://} (or {@code postgres://}) URLs from
  * {@code SPRING_DATASOURCE_URL} or {@code DATABASE_URL} and exposes {@code spring.datasource.*}
  * so Hikari receives a proper {@code jdbc:postgresql://} URL.
+ * <p>
+ * Runs with {@link Ordered#LOWEST_PRECEDENCE} so config data (e.g. {@code application.properties}
+ * resolving {@code ${SPRING_DATASOURCE_URL}}) is applied first; we then prepend the JDBC URL so it wins.
  */
 public class PostgresJdbcUrlEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
@@ -24,14 +27,17 @@ public class PostgresJdbcUrlEnvironmentPostProcessor implements EnvironmentPostP
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return Ordered.LOWEST_PRECEDENCE;
     }
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        // Prefer explicit env (PaaS DATABASE_URL) before resolved spring.datasource.url, which may
+        // still be the local default when only DATABASE_URL is set on the host.
         String raw = firstNonBlank(
                 environment.getProperty("SPRING_DATASOURCE_URL"),
-                environment.getProperty("DATABASE_URL"));
+                environment.getProperty("DATABASE_URL"),
+                environment.getProperty("spring.datasource.url"));
         if (!StringUtils.hasText(raw)) {
             return;
         }
@@ -99,11 +105,16 @@ public class PostgresJdbcUrlEnvironmentPostProcessor implements EnvironmentPostP
         environment.getPropertySources().addFirst(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
     }
 
-    private static String firstNonBlank(String a, String b) {
-        if (StringUtils.hasText(a)) {
-            return a;
+    private static String firstNonBlank(String... candidates) {
+        if (candidates == null) {
+            return null;
         }
-        return b;
+        for (String s : candidates) {
+            if (StringUtils.hasText(s)) {
+                return s;
+            }
+        }
+        return null;
     }
 
     private static String decode(String s) {
