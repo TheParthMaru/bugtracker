@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,6 +17,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+
+    /**
+     * Skip the entire security chain (including CORS) for platform health checks.
+     * {@code permitAll()} still runs filters; global CORS with credentials + wildcard
+     * can fail for browser/tool {@code Origin} headers and surface as 500 before the controller runs.
+     */
+    @Bean
+    public WebSecurityCustomizer healthEndpointIgnoring() {
+        return web -> web.ignoring().requestMatchers("/healthz", "/health");
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
