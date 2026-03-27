@@ -1,14 +1,11 @@
-# Build (JDK 21 matches backend/build.gradle toolchain)
-FROM eclipse-temurin:21-jdk-jammy AS builder
+# Build — Gradle from image (avoids missing gradle-wrapper.jar in git / Docker context)
+FROM gradle:8.14.2-jdk21 AS builder
 WORKDIR /workspace
 
-COPY gradlew .
-COPY gradle/wrapper gradle/wrapper
 COPY build.gradle settings.gradle ./
 COPY src src
 
-RUN chmod +x gradlew \
-	&& ./gradlew bootJar --no-daemon -x test
+RUN gradle bootJar --no-daemon -x test
 
 # Run (smaller JRE image)
 FROM eclipse-temurin:21-jre-jammy
