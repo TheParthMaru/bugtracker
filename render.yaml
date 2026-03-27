@@ -19,6 +19,7 @@ projects:
             healthCheckPath: /healthz
             autoDeployTrigger: commit
             envVars:
+              # JDBC jdbc:postgresql://... or paste Neon "postgresql://user:pass@host/db?sslmode=require"
               - key: SPRING_DATASOURCE_URL
                 sync: false
               - key: SPRING_DATASOURCE_USERNAME
