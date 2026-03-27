@@ -1,0 +1,2 @@
+# Ensure shell entrypoint runs on Linux (Render); CRLF breaks #!/bin/sh
+docker-entrypoint.sh text eol=lf

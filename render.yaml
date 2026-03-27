@@ -1,0 +1,31 @@
+# Render Blueprint — paths are relative to repo root. Sync in Dashboard if you use Blueprints.
+# envVars with sync: false: values live in the dashboard (set secrets there).
+version: "1"
+projects:
+  - name: My project
+    environments:
+      - name: Production
+        services:
+          - type: web
+            name: bugtracker-backend
+            runtime: docker
+            repo: https://github.com/TheParthMaru/bugtracker
+            plan: free
+            region: frankfurt
+            rootDir: backend
+            # Paths are relative to repository root (not rootDir)
+            dockerContext: backend
+            dockerfilePath: backend/Dockerfile
+            healthCheckPath: /healthz
+            autoDeployTrigger: commit
+            envVars:
+              - key: SPRING_DATASOURCE_URL
+                sync: false
+              - key: SPRING_DATASOURCE_USERNAME
+                sync: false
+              - key: SPRING_DATASOURCE_PASSWORD
+                sync: false
+              - key: JWT_SECRET_KEY
+                sync: false
+              - key: APP_FRONTEND_BASE_URL
+                sync: false
