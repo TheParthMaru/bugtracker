@@ -599,7 +599,7 @@ export function AnalyticsDashboard({
 																	<div className="space-y-1">
 																		<div className="font-medium">
 																			<a
-																				href={`/api/bugtracker/v1/projects/${projectSlug}/bugs/${bug.bugAProjectTicketNumber}`}
+																				href={`/projects/${projectSlug}/bugs/${bug.bugAProjectTicketNumber}`}
 																				className="text-blue-600 hover:text-blue-800 hover:underline"
 																			>
 																				Bug #{bug.bugAProjectTicketNumber}
@@ -620,7 +620,7 @@ export function AnalyticsDashboard({
 																	<div className="space-y-1">
 																		<div className="font-medium">
 																			<a
-																				href={`/api/bugtracker/v1/projects/${projectSlug}/bugs/${bug.bugBProjectTicketNumber}`}
+																				href={`/projects/${projectSlug}/bugs/${bug.bugBProjectTicketNumber}`}
 																				className="text-blue-600 hover:text-blue-800 hover:underline"
 																			>
 																				Bug #{bug.bugBProjectTicketNumber}

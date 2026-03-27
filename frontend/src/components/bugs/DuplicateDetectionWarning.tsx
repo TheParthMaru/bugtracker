@@ -95,7 +95,7 @@ export const DuplicateDetectionWarning = memo<DuplicateDetectionWarningProps>(
 		}, [onDismiss]);
 
 		const handleShowAll = useCallback(() => {
-			const url = `/api/bugtracker/v1/projects/${projectSlug}/similarity-analysis`;
+			const url = `/projects/${projectSlug}/similarity-analysis`;
 			window.open(url, "_blank");
 		}, [projectSlug]);
 

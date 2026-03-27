@@ -369,7 +369,7 @@ export function ProjectDetailPage() {
 	const handleCopyProjectLink = async () => {
 		if (!project) return;
 
-		const projectUrl = `${window.location.origin}/api/bugtracker/v1/projects/${project.projectSlug}`;
+		const projectUrl = `${window.location.origin}/projects/${project.projectSlug}`;
 		try {
 			await navigator.clipboard.writeText(projectUrl);
 			toast.success("Project API link copied to clipboard");

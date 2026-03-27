@@ -30,3 +30,6 @@ projects:
                 sync: false
               - key: APP_FRONTEND_BASE_URL
                 sync: false
+              # Comma-separated. Must include your Vercel origin(s), e.g. https://myapp.vercel.app
+              - key: APP_CORS_ALLOWED_ORIGINS
+                sync: false

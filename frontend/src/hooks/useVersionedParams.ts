@@ -1,13 +1,10 @@
 import { useParams, useLocation } from "react-router-dom";
 
 /**
- * Custom hook that properly extracts route parameters from versioned URLs
+ * Extracts route parameters, with a pathname fallback if useParams is empty
+ * (e.g. unusual navigation or edge cases).
  *
- * When using basename="/api/bugtracker/v1", React Router sometimes fails to
- * properly extract parameters. This hook provides a fallback by manually
- * parsing the URL path to extract the expected parameters.
- *
- * @returns Object containing the extracted parameters and a flag indicating if manual parsing was used
+ * @returns Extracted parameters and whether manual parsing was used
  */
 export const useVersionedParams = () => {
 	const params = useParams();
@@ -35,8 +32,7 @@ export const useVersionedParams = () => {
 		}
 	);
 
-	// Extract project slug and project ticket number from the path
-	// Expected format: /api/bugtracker/v1/projects/:projectSlug/bugs/:projectTicketNumber
+	// Expected segment pattern: .../projects/:projectSlug/bugs/:projectTicketNumber
 	const pathParts = location.pathname.split("/");
 
 	// Find the index of "projects" in the path

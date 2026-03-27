@@ -257,7 +257,7 @@ export function ProjectTeamDetailPage() {
 	const handleCopyTeamLink = async () => {
 		if (!projectSlug || !team?.teamSlug) return;
 
-		const teamUrl = `${window.location.origin}/api/bugtracker/v1/projects/${projectSlug}/teams/${team.teamSlug}`;
+		const teamUrl = `${window.location.origin}/projects/${projectSlug}/teams/${team.teamSlug}`;
 		try {
 			await navigator.clipboard.writeText(teamUrl);
 			toast.success("Team API link copied to clipboard");

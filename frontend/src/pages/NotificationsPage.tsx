@@ -284,20 +284,17 @@ export function NotificationsPage() {
 
 		// Navigate to related resource if available
 		if (notification.projectSlug && notification.projectTicketNumber) {
-			// Use proper routing format for bugs: /projects/{projectSlug}/bugs/{projectTicketNumber}
-			window.location.href = `/api/bugtracker/v1/projects/${notification.projectSlug}/bugs/${notification.projectTicketNumber}`;
+			window.location.href = `/projects/${notification.projectSlug}/bugs/${notification.projectTicketNumber}`;
 		} else if (notification.projectSlug) {
-			// Navigate to project using projectSlug (correct approach)
-			window.location.href = `/api/bugtracker/v1/projects/${notification.projectSlug}`;
+			window.location.href = `/projects/${notification.projectSlug}`;
 		} else if (notification.relatedBugId && notification.relatedProjectId) {
-			// Fallback for older notifications without new fields
 			console.warn(
 				"Using fallback bug URL format for notification:",
 				notification.notificationId
 			);
-			window.location.href = `/api/bugtracker/v1/projects/${notification.relatedProjectId}/bugs/${notification.relatedBugId}`;
+			window.location.href = `/projects/${notification.relatedProjectId}/bugs/${notification.relatedBugId}`;
 		} else if (notification.relatedTeamId) {
-			window.location.href = `/api/bugtracker/v1/teams/${notification.relatedTeamId}`;
+			window.location.href = "/teams";
 		}
 	};
 

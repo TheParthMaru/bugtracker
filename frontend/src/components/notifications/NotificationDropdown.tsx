@@ -222,13 +222,11 @@ export function NotificationDropdown({
 
 		// Navigate to related resource if available
 		if (notification.projectSlug && notification.projectTicketNumber) {
-			// Use proper routing format for bugs with basename: /api/bugtracker/v1/projects/{projectSlug}/bugs/{projectTicketNumber}
-			const newUrl = `/api/bugtracker/v1/projects/${notification.projectSlug}/bugs/${notification.projectTicketNumber}`;
+			const newUrl = `/projects/${notification.projectSlug}/bugs/${notification.projectTicketNumber}`;
 			console.log("Navigating to bug:", newUrl);
 			window.location.href = newUrl;
 		} else if (notification.projectSlug) {
-			// Navigate to project using projectSlug (correct approach)
-			const projectUrl = `/api/bugtracker/v1/projects/${notification.projectSlug}`;
+			const projectUrl = `/projects/${notification.projectSlug}`;
 			console.log("✅ Using projectSlug for navigation:", {
 				projectSlug: notification.projectSlug,
 				url: projectUrl,
@@ -237,7 +235,7 @@ export function NotificationDropdown({
 			window.location.href = projectUrl;
 		} else if (notification.relatedBugId && notification.relatedProjectId) {
 			// Fallback for older notifications without new fields
-			const fallbackUrl = `/api/bugtracker/v1/projects/${notification.relatedProjectId}/bugs/${notification.relatedBugId}`;
+			const fallbackUrl = `/projects/${notification.relatedProjectId}/bugs/${notification.relatedBugId}`;
 			console.warn(
 				"Using fallback bug URL format for notification:",
 				notification.notificationId,
@@ -246,7 +244,7 @@ export function NotificationDropdown({
 			);
 			window.location.href = fallbackUrl;
 		} else if (notification.relatedTeamId) {
-			window.location.href = `/api/bugtracker/v1/teams/${notification.relatedTeamId}`;
+			window.location.href = "/teams";
 		} else {
 			console.warn("⚠️ No navigation target found for notification:", {
 				notificationId: notification.notificationId,

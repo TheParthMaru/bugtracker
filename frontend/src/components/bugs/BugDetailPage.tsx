@@ -107,7 +107,6 @@ export function BugDetailPage() {
 		allParams: { projectSlug, projectTicketNumber },
 		currentUrl: window.location.href,
 		currentPathname: window.location.pathname,
-		basename: "/api/bugtracker/v1",
 	});
 
 	// State

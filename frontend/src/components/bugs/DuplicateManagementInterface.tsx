@@ -120,7 +120,7 @@ export const DuplicateManagementInterface: React.FC<
 	};
 
 	const handleViewBug = (bugId: number) => {
-		const bugUrl = `/api/bugtracker/v1/projects/${projectSlug}/bugs/${bugId}`;
+		const bugUrl = `/projects/${projectSlug}/bugs/${bugId}`;
 		window.open(bugUrl, "_blank");
 	};
 

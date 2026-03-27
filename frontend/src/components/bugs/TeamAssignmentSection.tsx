@@ -41,6 +41,7 @@ import {
 	AssignmentType,
 } from "@/types/bug";
 import type { Team } from "@/types/team";
+import { API_BASE_URL } from "@/config/constants";
 
 interface TeamAssignmentSectionProps {
 	projectSlug: string;
@@ -98,7 +99,7 @@ export function TeamAssignmentSection({
 			};
 
 			const response = await fetch(
-				`/api/bugtracker/v1/projects/${projectSlug}/bugs/team-assignment-recommendation`,
+				`${API_BASE_URL}/projects/${projectSlug}/bugs/team-assignment-recommendation`,
 				{
 					method: "POST",
 					headers: {

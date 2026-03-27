@@ -250,11 +250,7 @@ export function SimilarityAnalysisPage() {
 				(b) => b.bugAId === bugId || b.bugBId === bugId
 			);
 			if (bug) {
-				// The React Router has a basename of /api/bugtracker/v1
-				// So we need to include this in the URL for proper routing
-				const bugUrl = `/api/bugtracker/v1/projects/${projectSlug}/bugs/${bug.bugAProjectTicketNumber}`;
-
-				// Now open in new tab with the correct basename
+				const bugUrl = `/projects/${projectSlug}/bugs/${bug.bugAProjectTicketNumber}`;
 				window.open(bugUrl, "_blank");
 			}
 		}
@@ -337,9 +333,7 @@ export function SimilarityAnalysisPage() {
 							</h1>
 							<p className="text-red-700 mb-4">{state.error}</p>
 							<Button
-								onClick={() =>
-									(window.location.href = "/api/bugtracker/v1/auth/login")
-								}
+								onClick={() => (window.location.href = "/auth/login")}
 								variant="default"
 							>
 								Go to Login
