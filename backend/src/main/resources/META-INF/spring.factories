@@ -1,1 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
 com.pbm5.bugtracker.config.PostgresJdbcUrlEnvironmentPostProcessor
