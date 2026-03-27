@@ -1,0 +1,58 @@
+# === OS & Editor Specific ===
+.DS_Store
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# === Build & Dependency ===
+/build/
+/out/
+/target/
+/bin/
+/.gradle/
+/.mvn/
+!gradle/wrapper/gradle-wrapper.jar
+
+# === Logs & Temp ===
+*.log
+logs/
+*.tmp
+*.swp
+
+# === Environment & Config ===
+.env
+.env.*
+*.db
+application-local.properties
+application-dev.properties
+application-prod.properties
+application-test.properties
+
+# === System Files ===
+*.class
+*.jar
+*.war
+
+# === Node Modules (if you use Node for frontend later) ===
+node_modules/
+
+# === Backup Files ===
+*~
+*.bak
+*.orig
+*.old
+
+# === Coverage Reports ===
+/coverage/
+/jacoco.exec
+
+# === IntelliJ specific ===
+*.idea/
+*.classpath
+*.project
+*.settings/
+
+# === Others ===
+tmp/

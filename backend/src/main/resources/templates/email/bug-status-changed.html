@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bug Status Updated - BugTracker</title>
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+					"Helvetica Neue", Arial, sans-serif;
+				line-height: 1.6;
+				color: #333;
+				max-width: 600px;
+				margin: 0 auto;
+				padding: 20px;
+				background-color: #f8fafc;
+			}
+			.container {
+				background-color: #ffffff;
+				border-radius: 8px;
+				padding: 32px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+			.header {
+				text-align: center;
+				margin-bottom: 32px;
+				padding-bottom: 24px;
+				border-bottom: 2px solid #e2e8f0;
+			}
+			.logo {
+				font-size: 24px;
+				font-weight: bold;
+				color: #3b82f6;
+				margin-bottom: 8px;
+			}
+			.title {
+				font-size: 20px;
+				font-weight: 600;
+				color: #1e293b;
+				margin-bottom: 16px;
+			}
+			.bug-info {
+				background-color: #f1f5f9;
+				border-left: 4px solid #10b981;
+				padding: 16px;
+				margin: 24px 0;
+				border-radius: 0 6px 6px 0;
+			}
+			.bug-title {
+				font-size: 18px;
+				font-weight: 600;
+				color: #1e293b;
+				margin-bottom: 8px;
+			}
+			.status-change {
+				background-color: #ecfdf5;
+				border: 1px solid #10b981;
+				border-radius: 6px;
+				padding: 16px;
+				margin: 16px 0;
+				text-align: center;
+			}
+			.status-from,
+			.status-to {
+				display: inline-block;
+				padding: 4px 12px;
+				border-radius: 20px;
+				font-weight: 600;
+				font-size: 14px;
+			}
+			.status-open {
+				background-color: #dbeafe;
+				color: #1e40af;
+			}
+			.status-in-progress {
+				background-color: #fef3c7;
+				color: #92400e;
+			}
+			.status-resolved {
+				background-color: #d1fae5;
+				color: #065f46;
+			}
+			.status-closed {
+				background-color: #f3f4f6;
+				color: #374151;
+			}
+			.arrow {
+				margin: 0 16px;
+				font-size: 18px;
+				color: #10b981;
+			}
+			.bug-meta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 16px;
+				margin-top: 12px;
+			}
+			.meta-item {
+				display: flex;
+				align-items: center;
+				font-size: 14px;
+				color: #64748b;
+			}
+			.meta-label {
+				font-weight: 600;
+				margin-right: 4px;
+			}
+			.action-button {
+				display: inline-block;
+				background-color: #10b981;
+				color: white;
+				text-decoration: none;
+				padding: 12px 24px;
+				border-radius: 6px;
+				font-weight: 600;
+				margin: 24px 0;
+				text-align: center;
+			}
+			.footer {
+				margin-top: 32px;
+				padding-top: 24px;
+				border-top: 1px solid #e2e8f0;
+				text-align: center;
+				color: #64748b;
+				font-size: 14px;
+			}
+			.unsubscribe {
+				color: #9ca3af;
+				font-size: 12px;
+				margin-top: 16px;
+			}
+			.unsubscribe a {
+				color: #9ca3af;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="logo">🐛 BugTracker</div>
+				<div class="title">Bug Status Updated</div>
+			</div>
+
+			<p>Hello <strong>{{recipientName}}</strong>,</p>
+
+			<p>
+				The status of a bug in project <strong>{{projectName}}</strong> has been
+				updated.
+			</p>
+
+			<div class="bug-info">
+				<div class="bug-title">{{bugTitle}}</div>
+				<div class="bug-meta">
+					<div class="meta-item">
+						<span class="meta-label">ID:</span>
+						<span>{{bugId}}</span>
+					</div>
+					<div class="meta-item">
+						<span class="meta-label">Assignee:</span>
+						<span>{{assigneeName}}</span>
+					</div>
+					<div class="meta-item">
+						<span class="meta-label">Updated by:</span>
+						<span>{{updatedByName}}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="status-change">
+				<p><strong>Status Change:</strong></p>
+				<div>
+					<span class="status-from status-{{oldStatusClass}}"
+						>{{oldStatus}}</span
+					>
+					<span class="arrow">→</span>
+					<span class="status-to status-{{newStatusClass}}">{{newStatus}}</span>
+				</div>
+			</div>
+
+			{{#statusComment}}
+			<p><strong>Comment:</strong></p>
+			<p
+				style="
+					background-color: #f8fafc;
+					padding: 16px;
+					border-radius: 6px;
+					font-style: italic;
+				"
+			>
+				{{statusComment}}
+			</p>
+			{{/statusComment}}
+
+			<div style="text-align: center">
+				<a href="{{bugUrl}}" class="action-button">View Bug Details</a>
+			</div>
+
+			<p>
+				You can view the full bug details and history by clicking the button
+				above.
+			</p>
+
+			<div class="footer">
+				<p>This email was sent by BugTracker notification system.</p>
+				<div class="unsubscribe">
+					<p>
+						Don't want to receive these emails?
+						<a href="{{unsubscribeUrl}}"
+							>Update your notification preferences</a
+						>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

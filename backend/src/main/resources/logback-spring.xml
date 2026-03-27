@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ================================ -->
+    <!-- PROPERTIES AND VARIABLES         -->
+    <!-- ================================ -->
+    
+    <!-- Log directory - configurable via application.properties -->
+    <springProperty scope="context" name="LOG_DIR" source="logging.file.path" defaultValue="logs"/>
+    
+    <!-- Log pattern with filename and line number -->
+    <property name="LOG_PATTERN" 
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%logger{0}:%line] %msg%n"/>
+    
+    <!-- Console pattern with colors for development -->
+    <property name="CONSOLE_PATTERN" 
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%highlight(%-5level)] [%cyan(%logger{0}:%line)] %msg%n"/>
+
+    <!-- ================================ -->
+    <!-- APPENDERS                        -->
+    <!-- ================================ -->
+
+    <!-- Console Appender - Development only -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Application Log File - Your business logic + ALL errors -->
+    <appender name="APPLICATION_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/application.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        
+        <!-- TODO: Add for production -->
+        <!-- 
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/application-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        -->
+    </appender>
+
+    <!-- Framework Log File - Spring Boot, Hibernate, etc. -->
+    <appender name="FRAMEWORK_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/framework.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        
+        <!-- TODO: Add for production -->
+        <!-- 
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/framework-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        -->
+    </appender>
+
+    <!-- TODO: Add async appenders for production performance -->
+    <!-- 
+    <appender name="ASYNC_APPLICATION" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="APPLICATION_FILE"/>
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+    </appender>
+    -->
+
+    <!-- ================================ -->
+    <!-- LOGGER CONFIGURATIONS            -->
+    <!-- ================================ -->
+
+    <!-- Your Application Logs - DEBUG level for development -->
+    <logger name="com.pbm5.bugtracker" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="APPLICATION_FILE"/>
+    </logger>
+
+    <!-- All ERROR logs go to application.log (as requested) -->
+    <logger name="ROOT" level="ERROR" additivity="false">
+        <appender-ref ref="APPLICATION_FILE"/>
+    </logger>
+
+    <!-- Spring Framework logs -->
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="FRAMEWORK_FILE"/>
+    </logger>
+
+    <!-- Hibernate/JPA logs -->
+    <logger name="org.hibernate" level="INFO" additivity="false">
+        <appender-ref ref="FRAMEWORK_FILE"/>
+    </logger>
+
+    <!-- Tomcat logs -->
+    <logger name="org.apache.catalina" level="INFO" additivity="false">
+        <appender-ref ref="FRAMEWORK_FILE"/>
+    </logger>
+
+    <!-- Flyway migration logs -->
+    <logger name="org.flywaydb" level="INFO" additivity="false">
+        <appender-ref ref="FRAMEWORK_FILE"/>
+    </logger>
+
+    <!-- HikariCP connection pool -->
+    <logger name="com.zaxxer.hikari" level="INFO" additivity="false">
+        <appender-ref ref="FRAMEWORK_FILE"/>
+    </logger>
+
+    <!-- TODO: Production logger configurations -->
+    <!--
+    <springProfile name="prod">
+        <logger name="com.pbm5.bugtracker" level="INFO"/>
+        <logger name="org.springframework" level="WARN"/>
+        <logger name="org.hibernate" level="WARN"/>
+    </springProfile>
+    -->
+
+    <!-- ================================ -->
+    <!-- ROOT LOGGER                      -->
+    <!-- ================================ -->
+
+    <!-- Default root logger - console only for development -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration> 

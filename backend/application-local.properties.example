@@ -1,0 +1,13 @@
+# Copy to: backend/src/main/resources/application-local.properties
+# (that path is gitignored — never commit real secrets)
+#
+# Example local overrides — adjust username/password/database name to match your machine.
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/bugtrackerdb
+spring.datasource.username=your_db_user
+spring.datasource.password=your_db_password
+
+# Optional: real outbound email while developing
+# resend.enabled=true
+# resend.api.key=re_xxxxxxxx
+# resend.from.email=you@your-verified-domain.com

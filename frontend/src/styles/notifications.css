@@ -1,0 +1,302 @@
+/**
+ * Notification System Styles
+ * 
+ * Custom styles for the notification system components.
+ * Integrates with Tailwind CSS and maintains design consistency.
+ * 
+ * @author Notification Module Team
+ * @version 1.0
+ * @since 2025-01
+ */
+
+/* ===== Toast Container Styles ===== */
+.custom-toast-container {
+	width: 400px;
+	max-width: 90vw;
+}
+
+/* ===== Toast Styles ===== */
+.custom-toast {
+	background: white !important;
+	border: 1px solid #e5e7eb !important;
+	border-radius: 8px;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	padding: 16px;
+	margin-bottom: 8px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+}
+
+/* ===== Toast Text Color Fixes ===== */
+.Toastify__toast.custom-toast .font-medium {
+	color: #111827 !important; /* Dark text for light background */
+}
+
+.Toastify__toast.custom-toast .text-gray-600 {
+	color: #4b5563 !important; /* Medium gray text for light background */
+}
+
+.Toastify__toast.custom-toast div {
+	color: inherit;
+}
+
+/* ===== Force light theme override ===== */
+.Toastify__toast--success.custom-toast,
+.Toastify__toast--error.custom-toast,
+.Toastify__toast--warning.custom-toast,
+.Toastify__toast--info.custom-toast {
+	background: white !important;
+	color: #111827 !important;
+}
+
+.custom-toast-body {
+	padding: 0;
+	margin: 0;
+}
+
+.custom-toast-progress {
+	background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+	height: 3px;
+}
+
+/* ===== Toast Type Specific Styles ===== */
+.Toastify__toast--success .custom-toast-progress {
+	background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.Toastify__toast--warning .custom-toast-progress {
+	background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.Toastify__toast--error .custom-toast-progress {
+	background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.Toastify__toast--info .custom-toast-progress {
+	background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+}
+
+/* ===== Special Notification Toast ===== */
+.notification-toast {
+	border-left: 4px solid #3b82f6;
+	background: #f8fafc;
+}
+
+/* ===== Close Button Styles ===== */
+.Toastify__close-button {
+	color: #6b7280;
+	opacity: 0.7;
+	transition: opacity 0.2s;
+}
+
+.Toastify__close-button:hover {
+	opacity: 1;
+	color: #374151;
+}
+
+/* ===== Notification Bell Animation ===== */
+@keyframes bellShake {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	10%,
+	30%,
+	50%,
+	70%,
+	90% {
+		transform: rotate(-10deg);
+	}
+	20%,
+	40%,
+	60%,
+	80% {
+		transform: rotate(10deg);
+	}
+}
+
+.notification-bell-shake {
+	animation: bellShake 0.5s ease-in-out;
+}
+
+/* ===== Notification Dropdown Animations ===== */
+.notification-dropdown-enter {
+	opacity: 0;
+	transform: translateY(-10px) scale(0.95);
+}
+
+.notification-dropdown-enter-active {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.notification-dropdown-exit {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.notification-dropdown-exit-active {
+	opacity: 0;
+	transform: translateY(-10px) scale(0.95);
+	transition: opacity 150ms ease-in, transform 150ms ease-in;
+}
+
+/* ===== Notification Item Animations ===== */
+.notification-item-enter {
+	opacity: 0;
+	transform: translateX(-20px);
+	max-height: 0;
+}
+
+.notification-item-enter-active {
+	opacity: 1;
+	transform: translateX(0);
+	max-height: 200px;
+	transition: opacity 200ms ease-out, transform 200ms ease-out,
+		max-height 200ms ease-out;
+}
+
+.notification-item-exit {
+	opacity: 1;
+	transform: translateX(0);
+	max-height: 200px;
+}
+
+.notification-item-exit-active {
+	opacity: 0;
+	transform: translateX(20px);
+	max-height: 0;
+	transition: opacity 150ms ease-in, transform 150ms ease-in,
+		max-height 150ms ease-in;
+}
+
+/* ===== Unread Indicator Pulse ===== */
+@keyframes unreadPulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+.unread-indicator {
+	animation: unreadPulse 2s ease-in-out infinite;
+}
+
+/* ===== Connection Status Indicators ===== */
+.connection-status-dot {
+	position: relative;
+}
+
+.connection-status-dot::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	animation: connectionPulse 2s ease-in-out infinite;
+}
+
+@keyframes connectionPulse {
+	0% {
+		transform: scale(0.95);
+		opacity: 1;
+	}
+	70% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(0.95);
+		opacity: 0;
+	}
+}
+
+/* ===== Loading States ===== */
+.notification-skeleton {
+	background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+	background-size: 200% 100%;
+	animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+/* ===== Dark Mode Support (if needed) ===== */
+@media (prefers-color-scheme: dark) {
+	.custom-toast {
+		background: #1f2937;
+		border-color: #374151;
+		color: #f9fafb;
+	}
+
+	.notification-toast {
+		background: #111827;
+		border-left-color: #3b82f6;
+	}
+
+	.Toastify__close-button {
+		color: #9ca3af;
+	}
+
+	.Toastify__close-button:hover {
+		color: #f3f4f6;
+	}
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 640px) {
+	.custom-toast-container {
+		width: 100%;
+		padding: 0 16px;
+	}
+
+	.custom-toast {
+		margin-bottom: 4px;
+		padding: 12px;
+	}
+
+	/* Make notification dropdown full width on mobile */
+	.notification-dropdown-mobile {
+		position: fixed !important;
+		top: 60px !important;
+		left: 0 !important;
+		right: 0 !important;
+		width: 100% !important;
+		max-height: calc(100vh - 80px) !important;
+		border-radius: 0 !important;
+		border-left: none !important;
+		border-right: none !important;
+	}
+}
+
+/* ===== Accessibility Improvements ===== */
+.notification-item:focus-within {
+	outline: 2px solid #3b82f6;
+	outline-offset: 2px;
+}
+
+.notification-bell-button:focus {
+	outline: 2px solid #3b82f6;
+	outline-offset: 2px;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+	.custom-toast-container,
+	.notification-dropdown {
+		display: none !important;
+	}
+}
