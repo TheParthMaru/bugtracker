@@ -8,9 +8,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
-import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.pbm5.bugtracker.entity.User;
 import com.pbm5.bugtracker.repository.UserPointsRepository;

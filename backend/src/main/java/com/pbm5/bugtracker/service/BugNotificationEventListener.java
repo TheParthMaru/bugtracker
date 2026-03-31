@@ -11,7 +11,6 @@ import com.pbm5.bugtracker.repository.UserRepository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import org.springframework.data.domain.Page;
 
 /**
  * Event listener service for bug-related notifications.

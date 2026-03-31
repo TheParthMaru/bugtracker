@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pbm5.bugtracker.entity.Bug;
-import com.pbm5.bugtracker.entity.Team;
 import com.pbm5.bugtracker.entity.TeamMember;
 import com.pbm5.bugtracker.entity.User;
 import com.pbm5.bugtracker.repository.TeamMemberRepository;

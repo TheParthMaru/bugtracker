@@ -10,7 +10,8 @@ projects:
             name: bugtracker-backend
             runtime: docker
             repo: https://github.com/TheParthMaru/bugtracker
-            plan: free
+            # Paid instance — does not spin down after idle (unlike `free`). Workspace can still be Hobby ($0).
+            plan: starter
             region: frankfurt
             rootDir: backend
             # Paths are relative to repository root (not rootDir)

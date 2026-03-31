@@ -11,7 +11,6 @@ import com.pbm5.bugtracker.entity.PasswordResetToken;
 import com.pbm5.bugtracker.entity.User;
 import com.pbm5.bugtracker.repository.PasswordResetTokenRepository;
 import com.pbm5.bugtracker.repository.UserRepository;
-import com.pbm5.bugtracker.service.ResendEmailNotificationService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

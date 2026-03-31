@@ -1,13 +1,10 @@
 package com.pbm5.bugtracker.service;
 
 import com.pbm5.bugtracker.entity.Bug;
-import com.pbm5.bugtracker.entity.Project;
 import com.pbm5.bugtracker.entity.ProjectMember;
 import com.pbm5.bugtracker.entity.ProjectRole;
 import com.pbm5.bugtracker.exception.BugAccessDeniedException;
-import com.pbm5.bugtracker.exception.ProjectAccessDeniedException;
 import com.pbm5.bugtracker.repository.ProjectMemberRepository;
-import com.pbm5.bugtracker.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +12,6 @@ import java.util.UUID;
 
 @Service
 public class BugSecurityService {
-
-    @Autowired
-    private ProjectRepository projectRepository;
 
     @Autowired
     private ProjectMemberRepository projectMemberRepository;

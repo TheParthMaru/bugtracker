@@ -3,7 +3,6 @@ package com.pbm5.bugtracker.controller;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -110,7 +109,7 @@ public class UserController {
     /**
      * Update current user profile
      * 
-     * @param request the profile update request
+     * @param request        the profile update request
      * @param authentication the current authentication context
      * @return 200 OK with updated user profile
      */

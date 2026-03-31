@@ -7,7 +7,6 @@ import com.pbm5.bugtracker.exception.CommentNotFoundException;
 import com.pbm5.bugtracker.repository.BugCommentRepository;
 import com.pbm5.bugtracker.repository.BugRepository;
 import com.pbm5.bugtracker.repository.UserRepository;
-import com.pbm5.bugtracker.service.BugNotificationEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

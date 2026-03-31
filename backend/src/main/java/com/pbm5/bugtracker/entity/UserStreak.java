@@ -3,8 +3,6 @@ package com.pbm5.bugtracker.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import org.hibernate.annotations.UuidGenerator;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -84,4 +82,3 @@ public class UserStreak {
         return this.maxStreak > 0;
     }
 }
-

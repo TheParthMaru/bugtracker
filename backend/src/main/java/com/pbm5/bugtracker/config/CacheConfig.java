@@ -1,6 +1,7 @@
 package com.pbm5.bugtracker.config;
 
 import java.time.Duration;
+import java.util.Objects;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -31,7 +32,7 @@ public class CacheConfig {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
 
         // Configure cache settings for optimal performance
-        cacheManager.setCaffeine(Caffeine.newBuilder()
+        cacheManager.setCaffeine(Objects.requireNonNull(Caffeine.newBuilder()
                 // Maximum number of entries in cache
                 .maximumSize(1000)
                 // Expire entries after 15 minutes of write
@@ -39,7 +40,7 @@ public class CacheConfig {
                 // Expire entries after 5 minutes of last access
                 .expireAfterAccess(Duration.ofMinutes(5))
                 // Enable statistics for monitoring
-                .recordStats());
+                .recordStats()));
 
         // Pre-create caches for better performance
         cacheManager.setCacheNames(java.util.List.of(

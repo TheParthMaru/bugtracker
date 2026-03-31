@@ -22,6 +22,7 @@
  */
 
 import { useEffect, useState, useMemo } from "react";
+import axios from "axios";
 import Navbar from "@/components/Navbar";
 import {
 	BarChart3,
@@ -130,20 +131,29 @@ export function LandingPage() {
 				console.log("Starting to load user data...");
 				setLoading(true);
 
-				// Load user profile
-				console.log("Loading user profile...");
-				const userData = await userService.getCurrentUser();
-				console.log("User profile loaded:", userData);
-				setUser(userData);
-
-				// Load user's projects and bugs in parallel first
-				console.log("Loading projects and bugs in parallel...");
-				const [projects, bugs] = await Promise.allSettled([
+				// Run all dashboard requests in parallel — previously user → (projects+bugs) → teams
+				// caused ~3 network round trips in sequence and multi-second load times.
+				const [userRes, projects, bugs, teams] = await Promise.allSettled([
+					userService.getCurrentUser(),
 					projectService.getUserProjects(),
 					bugService.getMyAssignedBugs(),
+					teamService.getUserTeams(),
 				]);
 
-				// Handle projects result
+				if (userRes.status === "fulfilled") {
+					console.log("User profile loaded:", userRes.value);
+					setUser(userRes.value);
+				} else {
+					console.error("Failed to load user profile:", userRes.reason);
+					setUser(null);
+					if (
+						axios.isAxiosError(userRes.reason) &&
+						userRes.reason.response?.status === 401
+					) {
+						localStorage.removeItem("bugtracker_token");
+					}
+				}
+
 				let projectsData: Project[] = [];
 				if (projects.status === "fulfilled") {
 					projectsData = projects.value;
@@ -154,18 +164,6 @@ export function LandingPage() {
 					setUserProjects([]);
 				}
 
-				// Load only teams where the user is actually a member
-				console.log("Loading user's teams...");
-				try {
-					const userTeamsData = await teamService.getUserTeams();
-					console.log("User teams loaded successfully:", userTeamsData);
-					setUserTeams(userTeamsData);
-				} catch (error) {
-					console.error("Failed to load user teams:", error);
-					setUserTeams([]);
-				}
-
-				// Handle bugs result
 				let bugsData: BugType[] = [];
 				if (bugs.status === "fulfilled") {
 					bugsData = bugs.value;
@@ -176,7 +174,14 @@ export function LandingPage() {
 					setUserBugs([]);
 				}
 
-				// Calculate project statistics from the actual data we received
+				if (teams.status === "fulfilled") {
+					console.log("User teams loaded successfully:", teams.value);
+					setUserTeams(teams.value);
+				} else {
+					console.error("Failed to load user teams:", teams.reason);
+					setUserTeams([]);
+				}
+
 				const stats: ProjectStats = {
 					totalProjects: projectsData.length,
 					adminProjects: projectsData.filter((p) => p.userRole === "ADMIN")
@@ -190,12 +195,8 @@ export function LandingPage() {
 				};
 				console.log("Calculated stats from actual data:", stats);
 				setProjectStats(stats);
-
-				// Daily login notification is now handled in LoginPage.tsx
-				// No need to check transactions here anymore
 			} catch (error) {
 				console.error("Failed to load user data:", error);
-				// Only clear token if it's an authentication error
 				if (error instanceof Error && error.message.includes("401")) {
 					localStorage.removeItem("bugtracker_token");
 				}

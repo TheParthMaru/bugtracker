@@ -1,10 +1,8 @@
 package com.pbm5.bugtracker.dto;
 
 import com.pbm5.bugtracker.entity.BugAttachment;
-import com.pbm5.bugtracker.dto.UserResponse;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class BugAttachmentResponse {
 

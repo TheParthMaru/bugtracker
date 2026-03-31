@@ -1,14 +1,10 @@
 package com.pbm5.bugtracker.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +16,6 @@ import com.pbm5.bugtracker.dto.UserSearchResponse;
 import com.pbm5.bugtracker.entity.User;
 import com.pbm5.bugtracker.exception.UserNotFoundException;
 import com.pbm5.bugtracker.repository.UserRepository;
-import com.pbm5.bugtracker.repository.ProjectMemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +33,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final ProjectMemberRepository projectMemberRepository;
     private final GamificationService gamificationService;
 
     /**

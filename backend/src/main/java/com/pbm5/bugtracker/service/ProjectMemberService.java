@@ -18,7 +18,6 @@ import com.pbm5.bugtracker.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

@@ -8,7 +8,6 @@ import com.pbm5.bugtracker.exception.FileUploadException;
 import com.pbm5.bugtracker.repository.BugAttachmentRepository;
 import com.pbm5.bugtracker.repository.BugRepository;
 import com.pbm5.bugtracker.repository.UserRepository;
-import com.pbm5.bugtracker.service.BugNotificationEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

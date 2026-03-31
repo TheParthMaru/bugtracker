@@ -1,6 +1,5 @@
 package com.pbm5.bugtracker.repository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -77,9 +76,4 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                         "LOWER(u.email) LIKE LOWER(CONCAT('%', :searchTerm, '%')))")
         Page<User> findProjectMembersBySearchTerm(@Param("projectId") UUID projectId,
                         @Param("searchTerm") String searchTerm, Pageable pageable);
-
-        /**
-         * Find all active users for bulk operations
-         */
-        List<User> findAll();
 }

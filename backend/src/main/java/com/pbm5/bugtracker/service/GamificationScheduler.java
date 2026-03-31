@@ -1,14 +1,7 @@
 package com.pbm5.bugtracker.service;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import com.pbm5.bugtracker.entity.User;
-import com.pbm5.bugtracker.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 public class GamificationScheduler {
 
     private final LeaderboardService leaderboardService;
-    private final GamificationService gamificationService;
-    private final UserRepository userRepository;
 
     // Daily login processing removed - now handled by login-triggered approach
 

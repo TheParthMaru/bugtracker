@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.pbm5.bugtracker.entity.*;
-import com.pbm5.bugtracker.service.NotificationService;
 
 import java.util.HashMap;
 import java.util.Map;

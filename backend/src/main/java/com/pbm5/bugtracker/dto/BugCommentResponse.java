@@ -1,12 +1,9 @@
 package com.pbm5.bugtracker.dto;
 
 import com.pbm5.bugtracker.entity.BugComment;
-import com.pbm5.bugtracker.entity.User;
-import com.pbm5.bugtracker.dto.UserResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class BugCommentResponse {

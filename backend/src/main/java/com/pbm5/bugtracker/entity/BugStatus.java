@@ -1,8 +1,6 @@
 package com.pbm5.bugtracker.entity;
 
-import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public enum BugStatus {
     OPEN("Open"),

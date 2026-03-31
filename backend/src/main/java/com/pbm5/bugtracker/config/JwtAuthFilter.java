@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Filter that runs on each request, checks JWT in header, and sets auth user if valid.
+ * Filter that runs on each request, checks JWT in header, and sets auth user if
+ * valid.
  */
 
 @Component
@@ -33,9 +34,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
 
     @Override
+    @io.micrometer.common.lang.NonNull
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
@@ -61,8 +63,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 logger.info("Valid token for user: {}", userEmail);
                 var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
                 logger.debug("Setting Spring Security context with authorities: {}", authorities);
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(user, null, authorities);
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null,
+                        authorities);
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);

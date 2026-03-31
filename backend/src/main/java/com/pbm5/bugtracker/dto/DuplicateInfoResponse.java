@@ -1,7 +1,5 @@
 package com.pbm5.bugtracker.dto;
 
-import com.pbm5.bugtracker.entity.DuplicateDetectionMethod;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
